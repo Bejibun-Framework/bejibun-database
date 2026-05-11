@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v0.1.20](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.14...v0.1.20) - 2026-05-11
+
+### 🩹 Fixes
+
+### 📖 Changes
+- Added `db:seed --seeder file.ts` for specific file seeder
+- Added `db:seed --force` for skip confirmation in production
+
+### ❤️Contributors
+- Havea Crenata ([@crenata](https://github.com/crenata))
+
+**Full Changelog**: https://github.com/Bejibun-Framework/bejibun-database/blob/master/CHANGELOG.md
+
+---
+
 ## [v0.1.14](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.12...v0.1.14) - 2025-10-25
 
 ### 🩹 Fixes

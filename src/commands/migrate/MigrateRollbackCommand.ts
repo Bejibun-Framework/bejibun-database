@@ -38,7 +38,7 @@ export default class MigrateRollbackCommand {
     public async handle(options: any, args: Array<string>): Promise<void> {
         const database = Database.knex();
 
-        const bypass = isNotEmpty(options.force);
+        const bypass: boolean | undefined = isNotEmpty(options.force);
 
         let confirm = "Y";
         if (!bypass) confirm = await ask(

@@ -1,6 +1,6 @@
 {
     "name": "@bejibun/database",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "author": "Havea Crenata <havea.crenata@gmail.com>",
     "repository": {
         "type": "git",
@@ -10,7 +10,7 @@
     "module": "index.js",
     "devDependencies": {
         "@types/bun": "latest",
-        "tsc-alias": "^1.8.16"
+        "tsc-alias": "^1.8.17"
     },
     "bugs": {
         "url": "https://github.com/Bejibun-Framework/bejibun-database/issues"
@@ -37,11 +37,11 @@
     "type": "module",
     "types": "index.d.ts",
     "dependencies": {
-        "@bejibun/app": "^0.1.22",
+        "@bejibun/app": "^0.1.23",
         "@bejibun/logger": "^0.1.22",
         "@bejibun/utils": "^0.1.28",
-        "knex": "^3.1.0",
-        "ora": "^9.0.0",
-        "pg": "^8.16.3"
+        "knex": "^3.2.10",
+        "ora": "^9.4.0",
+        "pg": "^8.20.0"
     }
 }
