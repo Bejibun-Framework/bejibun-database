@@ -26,7 +26,7 @@ export default class DbSeedCommand {
      */
     protected $options: Array<Array<any>> = [
         ["-f, --force", "Skip command confirmation"],
-        ["-s, --seeder", "Specific file seeder"]
+        ["-s, --seeder <file>", "Specific file seeder"]
     ];
 
     /**
@@ -59,8 +59,8 @@ export default class DbSeedCommand {
             ).start();
 
             try {
-                const logs = (await database.seed.run({
-                    specific: defineValue(seeder)
+                const logs: Array<string> = (await database.seed.run({
+                    specific: seeder
                 })).flat();
                 spinner.succeed("Seeding finished");
 

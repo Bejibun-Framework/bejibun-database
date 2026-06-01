@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v0.1.21](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.20...v0.1.21) - 2026-06-01
+
+### 🩹 Fixes
+- Invalid parameter for specific seeder - [#2](https://github.com/Bejibun-Framework/bejibun-database/issues/2)
+
+### 📖 Changes
+
+### ❤️Contributors
+- Havea Crenata ([@crenata](https://github.com/crenata))
+
+**Full Changelog**: https://github.com/Bejibun-Framework/bejibun-database/blob/master/CHANGELOG.md
+
+---
+
 ## [v0.1.20](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.14...v0.1.20) - 2026-05-11
 
 ### 🩹 Fixes

@@ -23,7 +23,7 @@ export default class DbSeedCommand {
      */
     $options = [
         ["-f, --force", "Skip command confirmation"],
-        ["-s, --seeder", "Specific file seeder"]
+        ["-s, --seeder <file>", "Specific file seeder"]
     ];
     /**
      * The arguments of the console command.
@@ -48,7 +48,7 @@ export default class DbSeedCommand {
                 .show()).start();
             try {
                 const logs = (await database.seed.run({
-                    specific: defineValue(seeder)
+                    specific: seeder
                 })).flat();
                 spinner.succeed("Seeding finished");
                 if (logs.length > 0)
