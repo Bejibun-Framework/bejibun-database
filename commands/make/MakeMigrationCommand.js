@@ -27,9 +27,7 @@ export default class MakeMigrationCommand {
      *
      * @var $arguments Array<Array<string>>
      */
-    $arguments = [
-        ["<file>", "The name of the migration file"]
-    ];
+    $arguments = [["<file>", "The name of the migration file"]];
     async handle(options, args) {
         if (isEmpty(args)) {
             Logger.setContext("APP").error("There is no filename provided.");
@@ -38,22 +36,27 @@ export default class MakeMigrationCommand {
         const file = args;
         const migrationsDirectory = "migrations";
         const template = Bun.file(path.resolve(__dirname, `../../stubs/database/${migrationsDirectory}/migration_template.ts`));
-        if (!await template.exists()) {
+        if (!(await template.exists())) {
             Logger.setContext("APP").error("Whoops, something went wrong, the migration template not found.");
             return;
         }
         const now = Luxon.DateTime.now().toFormat("yyyyMMdd");
         const latest = Array.from(new Bun.Glob("**/*").scanSync({
             cwd: App.Path.databasePath(migrationsDirectory)
-        })).map((value) => {
+        }))
+            .map((value) => {
             const split = value.split("_").slice(0, 2);
             return {
                 date: split[0],
                 count: split[1]
             };
-        }).filter((value) => {
+        })
+            .filter((value) => {
             return value.date === now;
-        }).map((value) => value.count).sort().reverse()[0];
+        })
+            .map((value) => value.count)
+            .sort()
+            .reverse()[0];
         const counter = defineValue(parseInt(latest), 0);
         const destination = `${migrationsDirectory}/${now}_${String(counter + 1).padStart(6, "0")}_${file}.ts`;
         await Bun.write(App.Path.databasePath(destination), await template.text());

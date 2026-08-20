@@ -36,7 +36,7 @@ export default class DbSeedCommand {
      */
     protected $arguments: Array<Array<string>> = [];
 
-    public async handle(options: any, args: Array<string>): Promise<void> {
+    public async handle(options: any): Promise<void> {
         const database = Database.knex();
 
         const environment: string = defineValue(Bun.env.APP_ENV, "development");
@@ -44,27 +44,29 @@ export default class DbSeedCommand {
         const seeder: string | undefined = options.seeder;
 
         let confirm = "Y";
-        if (environment === "production" && !bypass) confirm = await ask(
-            Chalk.setValue("Application in production. Are you sure you want to run this command? (Y/N): ")
-                .inline()
-                .error()
-                .show()
-        );
+        if (environment === "production" && !bypass)
+            confirm = await ask(
+                Chalk.setValue(
+                    "Application in production. Are you sure you want to run this command? (Y/N): "
+                )
+                    .inline()
+                    .error()
+                    .show()
+            );
 
         if (confirm.toUpperCase() === "Y") {
-            const spinner = ora(
-                Chalk.setValue("Seeding...")
-                    .info()
-                    .show()
-            ).start();
+            const spinner = ora(Chalk.setValue("Seeding...").info().show()).start();
 
             try {
-                const logs: Array<string> = (await database.seed.run({
-                    specific: seeder
-                })).flat();
+                const logs: Array<string> = (
+                    await database.seed.run({
+                        specific: seeder
+                    })
+                ).flat();
                 spinner.succeed("Seeding finished");
 
-                if (logs.length > 0) logs.forEach((seeder: string) => spinner.succeed(path.basename(seeder)));
+                if (logs.length > 0)
+                    logs.forEach((seeder: string) => spinner.succeed(path.basename(seeder)));
                 else spinner.succeed("No seeders were run.");
             } catch (error: any) {
                 spinner.fail(`Seeding failed : ${error.message}`);

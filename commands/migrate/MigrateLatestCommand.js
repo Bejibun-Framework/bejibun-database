@@ -26,11 +26,9 @@ export default class MigrateLatestCommand {
      * @var $arguments Array<Array<string>>
      */
     $arguments = [];
-    async handle(options, args) {
+    async handle() {
         const database = Database.knex();
-        const spinner = ora(Chalk.setValue("Migrating...")
-            .info()
-            .show()).start();
+        const spinner = ora(Chalk.setValue("Migrating...").info().show()).start();
         try {
             const [batchNo, logs] = await database.migrate.latest();
             spinner.succeed(`Batch ${batchNo} finished`);

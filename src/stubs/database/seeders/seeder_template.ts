@@ -1,5 +1,6 @@
-import type {Knex} from "knex";
-
-export async function seed(knex: Knex): Promise<void> {
-    // Your code goes here...
+export async function seed(knex: any): Promise<void> {
+    // @ts-expect-error for sample purposes
+    await TestModel.query(knex).insert({
+        name: "Sample"
+    });
 }

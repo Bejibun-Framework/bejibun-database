@@ -21,16 +21,14 @@ export default class MigrateRollbackCommand {
      *
      * @var $options Array<Array<any>>
      */
-    $options = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    $options = [["-f, --force", "Skip command confirmation"]];
     /**
      * The arguments of the console command.
      *
      * @var $arguments Array<Array<string>>
      */
     $arguments = [];
-    async handle(options, args) {
+    async handle(options) {
         const database = Database.knex();
         const bypass = isNotEmpty(options.force);
         let confirm = "Y";
@@ -42,9 +40,7 @@ export default class MigrateRollbackCommand {
         if (confirm.toUpperCase() === "Y") {
             if (!bypass)
                 Logger.empty();
-            const spinner = ora(Chalk.setValue("Rollback...")
-                .info()
-                .show()).start();
+            const spinner = ora(Chalk.setValue("Rollback...").info().show()).start();
             try {
                 const [batchNo, logs] = await database.migrate.rollback();
                 spinner.succeed(`Batch ${batchNo} finished`);

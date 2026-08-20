@@ -1,2 +1,1 @@
-import type { Knex } from "knex";
-export declare function seed(knex: Knex): Promise<void>;
+export declare function seed(knex: any): Promise<void>;

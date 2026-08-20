@@ -23,9 +23,7 @@ export default class MigrateStatusCommand {
      *
      * @var $options Array<Array<any>>
      */
-    protected $options: Array<Array<any>> = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    protected $options: Array<Array<any>> = [["-f, --force", "Skip command confirmation"]];
 
     /**
      * The arguments of the console command.
@@ -34,26 +32,26 @@ export default class MigrateStatusCommand {
      */
     protected $arguments: Array<Array<string>> = [];
 
-    public async handle(options: any, args: Array<string>): Promise<void> {
+    public async handle(): Promise<void> {
         const database = Database.knex();
 
-        const spinner = ora(
-            Chalk.setValue("Fetching...")
-                .info()
-                .show()
-        ).start();
+        const spinner = ora(Chalk.setValue("Fetching...").info().show()).start();
 
         try {
             const [completed, pending] = await database.migrate.list();
 
             spinner.succeed("Completed Migrations :");
-            if (completed.length > 0) completed.forEach((migration: { name: string }) => spinner.succeed(migration.name));
+            if (completed.length > 0)
+                completed.forEach((migration: {name: string}) => spinner.succeed(migration.name));
             else spinner.succeed("No migrations were completed.");
 
             Logger.empty();
 
             spinner.succeed("Pending Migrations :");
-            if (pending.length > 0) pending.forEach((migration: { file: string, directory: string }) => spinner.succeed(migration.file));
+            if (pending.length > 0)
+                pending.forEach((migration: {file: string; directory: string}) =>
+                    spinner.succeed(migration.file)
+                );
             else spinner.succeed("No migrations were pending.");
         } catch (error: any) {
             spinner.fail(`Fetching failed : ${error.message}`);

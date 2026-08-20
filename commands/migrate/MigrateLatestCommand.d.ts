@@ -23,5 +23,5 @@ export default class MigrateLatestCommand {
      * @var $arguments Array<Array<string>>
      */
     protected $arguments: Array<Array<string>>;
-    handle(options: any, args: Array<string>): Promise<void>;
+    handle(): Promise<void>;
 }

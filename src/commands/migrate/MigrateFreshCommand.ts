@@ -24,9 +24,7 @@ export default class MigrateFreshCommand {
      *
      * @var $options Array<Array<any>>
      */
-    protected $options: Array<Array<any>> = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    protected $options: Array<Array<any>> = [["-f, --force", "Skip command confirmation"]];
 
     /**
      * The arguments of the console command.
@@ -35,27 +33,26 @@ export default class MigrateFreshCommand {
      */
     protected $arguments: Array<Array<string>> = [];
 
-    public async handle(options: any, args: Array<string>): Promise<void> {
+    public async handle(options: any): Promise<void> {
         const database = Database.knex();
 
         const bypass = isNotEmpty(options.force);
 
         let confirm = "Y";
-        if (!bypass) confirm = await ask(
-            Chalk.setValue("This will DROP ALL tables and re-run ALL migrations. Are you want to continue? (Y/N): ")
-                .inline()
-                .error()
-                .show()
-        );
+        if (!bypass)
+            confirm = await ask(
+                Chalk.setValue(
+                    "This will DROP ALL tables and re-run ALL migrations. Are you want to continue? (Y/N): "
+                )
+                    .inline()
+                    .error()
+                    .show()
+            );
 
         if (confirm.toUpperCase() === "Y") {
             if (!bypass) Logger.empty();
 
-            const spinner = ora(
-                Chalk.setValue("Rollback...")
-                    .info()
-                    .show()
-            ).start();
+            const spinner = ora(Chalk.setValue("Rollback...").info().show()).start();
 
             try {
                 await database.migrate.rollback({}, true);
@@ -64,7 +61,8 @@ export default class MigrateFreshCommand {
                 const [batchNo, logs] = await database.migrate.latest();
                 spinner.succeed(`Batch ${batchNo} finished`);
 
-                if (logs.length > 0) logs.forEach((migration: string) => spinner.succeed(migration));
+                if (logs.length > 0)
+                    logs.forEach((migration: string) => spinner.succeed(migration));
                 else spinner.succeed("No migrations were run.");
             } catch (error: any) {
                 spinner.fail(`Migration failed : ${error.message}`);

@@ -31,7 +31,7 @@ export default class DbSeedCommand {
      * @var $arguments Array<Array<string>>
      */
     $arguments = [];
-    async handle(options, args) {
+    async handle(options) {
         const database = Database.knex();
         const environment = defineValue(Bun.env.APP_ENV, "development");
         const bypass = isNotEmpty(options.force);
@@ -43,9 +43,7 @@ export default class DbSeedCommand {
                 .error()
                 .show());
         if (confirm.toUpperCase() === "Y") {
-            const spinner = ora(Chalk.setValue("Seeding...")
-                .info()
-                .show()).start();
+            const spinner = ora(Chalk.setValue("Seeding...").info().show()).start();
             try {
                 const logs = (await database.seed.run({
                     specific: seeder

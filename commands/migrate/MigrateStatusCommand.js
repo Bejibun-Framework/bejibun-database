@@ -20,20 +20,16 @@ export default class MigrateStatusCommand {
      *
      * @var $options Array<Array<any>>
      */
-    $options = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    $options = [["-f, --force", "Skip command confirmation"]];
     /**
      * The arguments of the console command.
      *
      * @var $arguments Array<Array<string>>
      */
     $arguments = [];
-    async handle(options, args) {
+    async handle() {
         const database = Database.knex();
-        const spinner = ora(Chalk.setValue("Fetching...")
-            .info()
-            .show()).start();
+        const spinner = ora(Chalk.setValue("Fetching...").info().show()).start();
         try {
             const [completed, pending] = await database.migrate.list();
             spinner.succeed("Completed Migrations :");

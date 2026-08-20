@@ -24,9 +24,7 @@ export default class MigrateRollbackCommand {
      *
      * @var $options Array<Array<any>>
      */
-    protected $options: Array<Array<any>> = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    protected $options: Array<Array<any>> = [["-f, --force", "Skip command confirmation"]];
 
     /**
      * The arguments of the console command.
@@ -35,32 +33,32 @@ export default class MigrateRollbackCommand {
      */
     protected $arguments: Array<Array<string>> = [];
 
-    public async handle(options: any, args: Array<string>): Promise<void> {
+    public async handle(options: any): Promise<void> {
         const database = Database.knex();
 
         const bypass: boolean | undefined = isNotEmpty(options.force);
 
         let confirm = "Y";
-        if (!bypass) confirm = await ask(
-            Chalk.setValue("This will ROLLBACK latest migrations. Are you want to continue? (Y/N): ")
-                .inline()
-                .error()
-                .show()
-        );
+        if (!bypass)
+            confirm = await ask(
+                Chalk.setValue(
+                    "This will ROLLBACK latest migrations. Are you want to continue? (Y/N): "
+                )
+                    .inline()
+                    .error()
+                    .show()
+            );
 
         if (confirm.toUpperCase() === "Y") {
             if (!bypass) Logger.empty();
 
-            const spinner = ora(
-                Chalk.setValue("Rollback...")
-                    .info()
-                    .show()
-            ).start();
+            const spinner = ora(Chalk.setValue("Rollback...").info().show()).start();
             try {
                 const [batchNo, logs] = await database.migrate.rollback();
                 spinner.succeed(`Batch ${batchNo} finished`);
 
-                if (logs.length > 0) logs.forEach((migration: string) => spinner.succeed(migration));
+                if (logs.length > 0)
+                    logs.forEach((migration: string) => spinner.succeed(migration));
                 else spinner.succeed("No migrations were rolled back.");
             } catch (error: any) {
                 spinner.fail(`Rollback failed : ${error.message}`);

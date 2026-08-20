@@ -31,9 +31,7 @@ export default class MakeMigrationCommand {
      *
      * @var $arguments Array<Array<string>>
      */
-    protected $arguments: Array<Array<string>> = [
-        ["<file>", "The name of the migration file"]
-    ];
+    protected $arguments: Array<Array<string>> = [["<file>", "The name of the migration file"]];
 
     public async handle(options: any, args: string): Promise<void> {
         if (isEmpty(args)) {
@@ -43,10 +41,17 @@ export default class MakeMigrationCommand {
 
         const file: string = args;
         const migrationsDirectory: string = "migrations";
-        const template: Bun.BunFile = Bun.file(path.resolve(__dirname, `../../stubs/database/${migrationsDirectory}/migration_template.ts`));
+        const template: Bun.BunFile = Bun.file(
+            path.resolve(
+                __dirname,
+                `../../stubs/database/${migrationsDirectory}/migration_template.ts`
+            )
+        );
 
-        if (!await template.exists()) {
-            Logger.setContext("APP").error("Whoops, something went wrong, the migration template not found.");
+        if (!(await template.exists())) {
+            Logger.setContext("APP").error(
+                "Whoops, something went wrong, the migration template not found."
+            );
             return;
         }
 
@@ -55,16 +60,21 @@ export default class MakeMigrationCommand {
             new Bun.Glob("**/*").scanSync({
                 cwd: App.Path.databasePath(migrationsDirectory)
             })
-        ).map((value: string) => {
-            const split = value.split("_").slice(0, 2);
+        )
+            .map((value: string) => {
+                const split = value.split("_").slice(0, 2);
 
-            return {
-                date: split[0],
-                count: split[1]
-            };
-        }).filter((value: Record<string, string>) => {
-            return value.date === now;
-        }).map((value: Record<string, string>) => value.count).sort().reverse()[0];
+                return {
+                    date: split[0],
+                    count: split[1]
+                };
+            })
+            .filter((value: Record<string, string>) => {
+                return value.date === now;
+            })
+            .map((value: Record<string, string>) => value.count)
+            .sort()
+            .reverse()[0];
 
         const counter: number = defineValue(parseInt(latest), 0);
 

@@ -21,16 +21,14 @@ export default class MigrateFreshCommand {
      *
      * @var $options Array<Array<any>>
      */
-    $options = [
-        ["-f, --force", "Skip command confirmation"]
-    ];
+    $options = [["-f, --force", "Skip command confirmation"]];
     /**
      * The arguments of the console command.
      *
      * @var $arguments Array<Array<string>>
      */
     $arguments = [];
-    async handle(options, args) {
+    async handle(options) {
         const database = Database.knex();
         const bypass = isNotEmpty(options.force);
         let confirm = "Y";
@@ -42,9 +40,7 @@ export default class MigrateFreshCommand {
         if (confirm.toUpperCase() === "Y") {
             if (!bypass)
                 Logger.empty();
-            const spinner = ora(Chalk.setValue("Rollback...")
-                .info()
-                .show()).start();
+            const spinner = ora(Chalk.setValue("Rollback...").info().show()).start();
             try {
                 await database.migrate.rollback({}, true);
                 spinner.succeed("Rolled back all migrations");

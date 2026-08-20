@@ -31,14 +31,10 @@ export default class MigrateLatestCommand {
      */
     protected $arguments: Array<Array<string>> = [];
 
-    public async handle(options: any, args: Array<string>): Promise<void> {
+    public async handle(): Promise<void> {
         const database = Database.knex();
 
-        const spinner = ora(
-            Chalk.setValue("Migrating...")
-                .info()
-                .show()
-        ).start();
+        const spinner = ora(Chalk.setValue("Migrating...").info().show()).start();
 
         try {
             const [batchNo, logs] = await database.migrate.latest();
