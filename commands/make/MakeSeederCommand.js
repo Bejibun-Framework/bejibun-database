@@ -2,7 +2,7 @@ import App from "@bejibun/app";
 import Logger from "@bejibun/logger";
 import { isEmpty } from "@bejibun/utils";
 import Luxon from "@bejibun/utils/facades/Luxon";
-import { latestCounter, nextFileName, resolveTemplate } from "./MakeHelper";
+import { latestCounter, nextFileName, resolveTemplate } from "../../utils/commands/make/MakeHelper.js";
 /** Console command that creates a new seeder file. */
 export default class MakeSeederCommand {
     /**

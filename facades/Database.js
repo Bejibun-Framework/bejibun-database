@@ -1,4 +1,4 @@
-import DatabaseBuilder from "../builders/DatabaseBuilder";
+import DatabaseBuilder from "../builders/DatabaseBuilder.js";
 /** Cached builder instance so the config and connection pool are reused. */
 let builder = null;
 /**

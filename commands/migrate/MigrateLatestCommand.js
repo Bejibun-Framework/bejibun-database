@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import ora from "ora";
-import Database from "../../facades/Database";
+import Database from "../../facades/Database.js";
 /** Console command that runs the latest migration. */
 export default class MigrateLatestCommand {
     /**

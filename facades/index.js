@@ -1,4 +1,4 @@
 /**
  * Re-exports the Database facade.
  */
-export { default as Database } from "./Database";
+export { default as Database } from "./Database.js";

@@ -3,6 +3,34 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v0.1.25](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.23...v0.1.25) - 2026-09-24
+
+### 🩹 Fixes
+- Normalized the self-referential facade re-export: `facades/index` now emits `export {default as Database} from "./Database"` instead of `"../facades/Database"` (same target, no more odd self-path)
+
+### 📖 Changes
+- Moved `MakeHelper` from `commands/make/` to a new top-level `utils/commands/make/` path; `MakeMigrationCommand` and `MakeSeederCommand` now import it from there
+- `tests/database.test.ts` now imports the **compiled package** (`config/database`, `builders/DatabaseBuilder`, `facades/Database`, `utils/commands/make/MakeHelper`) instead of `../src/...`, so the suite exercises the artifacts consumers actually receive
+
+### 📦 Dependencies
+
+- Bumped [`@bejibun/app`](https://github.com/Bejibun-Framework/bejibun-app) from `^0.1.26` to `^0.1.27`
+- Bumped [`@bejibun/logger`](https://github.com/Bejibun-Framework/bejibun-logger) from `^0.2.1` to `^0.2.10`
+- Bumped [`@bejibun/utils`](https://github.com/Bejibun-Framework/bejibun-utils) from `^0.1.30` to `^0.1.31`
+- Bumped `@types/bun` (devDependency) from `^1.4.0` to `^1.4.2`
+- Bumped `eslint` (devDependency) from `^10.9.1` to `^10.11.0`
+- Bumped `globals` (devDependency) from `^17.11.0` to `^17.12.0`
+- Bumped `prettier` (devDependency) from `^3.9.6` to `^3.9.9`
+- Bumped `tsc-alias` (devDependency) from `^1.9.3` to `^1.9.5`
+- Bumped `typescript-eslint` (devDependency) from `^8.69.0` to `^8.70.1`
+
+### ❤️Contributors
+- Havea Crenata ([@crenata](https://github.com/crenata))
+
+**Full Changelog**: https://github.com/Bejibun-Framework/bejibun-database/blob/master/CHANGELOG.md
+
+---
+
 ## [v0.1.23](https://github.com/Bejibun-Framework/bejibun-database/compare/v0.1.22...v0.1.23) - 2026-09-01
 
 ### 🩹 Fixes

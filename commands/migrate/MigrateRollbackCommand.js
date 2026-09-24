@@ -2,7 +2,7 @@ import Logger from "@bejibun/logger";
 import { ask, isNotEmpty } from "@bejibun/utils";
 import chalk from "chalk";
 import ora from "ora";
-import Database from "../../facades/Database";
+import Database from "../../facades/Database.js";
 /** Console command that rolls back the latest migrations. */
 export default class MigrateRollbackCommand {
     /**

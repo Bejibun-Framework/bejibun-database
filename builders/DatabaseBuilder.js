@@ -45,7 +45,7 @@ export default class DatabaseBuilder {
             cachedConfig = require(App.Path.configPath("database.ts")).default;
         }
         catch {
-            cachedConfig = require("../config/database").default;
+            cachedConfig = require("../config/database.js").default;
         }
         return cachedConfig;
     }

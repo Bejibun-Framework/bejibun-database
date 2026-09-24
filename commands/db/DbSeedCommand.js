@@ -2,7 +2,7 @@ import { ask, defineValue, isNotEmpty } from "@bejibun/utils";
 import chalk from "chalk";
 import ora from "ora";
 import path from "path";
-import Database from "../../facades/Database";
+import Database from "../../facades/Database.js";
 /** Console command that runs database seeders. */
 export default class DbSeedCommand {
     /**

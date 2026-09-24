@@ -2,7 +2,7 @@ import {describe, expect, test} from "bun:test";
 import DatabaseConfig from "../src/config/database";
 import DatabaseBuilder from "../src/builders/DatabaseBuilder";
 import Database from "../src/facades/Database";
-import {latestCounter, nextFileName, resolveTemplate} from "../src/commands/make/MakeHelper";
+import {latestCounter, nextFileName, resolveTemplate} from "../src/utils/commands/make/MakeHelper";
 
 describe("Database facade", () => {
     test("knex returns a configured Knex instance", () => {
